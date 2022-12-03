@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -6,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import globalStylesUrl from "~/styles/global.css";
 
 export const meta = () => ({
   charset: "utf-8",
@@ -21,7 +23,9 @@ export default function App() {
         <Links /> */}
       </head>
       <body>
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
         {/* <ScrollRestoration />
         <Scripts />
         <LiveReload /> */}
@@ -30,14 +34,20 @@ export default function App() {
   );
 }
 
-
 function Layout({ children }) {
   return (
     <>
-    <nav className="navbar">
-    <Links to="/" className="logo">
-    </Links>
-    </nav>
+      <nav className="navbar">
+        <Link to="/" className="logo">
+          Remix
+        </Link>
+        <ul className="nav">
+          <li>
+            <Link to="/posts">Posts</Link>
+          </li>
+        </ul>
+      </nav>
+      <div className="container">{children}</div>
     </>
-  )
+  );
 }
