@@ -1,13 +1,18 @@
-import { Link } from "@remix-run/react";
+import { Link, Form } from "@remix-run/react";
 import { redirect } from "@remix-run/node";
 
 export const action = async ({ request }) => {
-  const form = await request.formData();
-  console.log(request, "request");
-  return redirect("/posts");
+  const formData = await request.formData();
+  const title = formData.get("title");
+  const body = formData.get("body");
+
+  const fields = { title, body };
+  console.log(fields);
+
+//   return redirect("/posts");
 };
 
-export default function NewPost() {
+function NewPost() {
   return (
     <>
       <div className="page-header">
@@ -17,7 +22,7 @@ export default function NewPost() {
         </Link>
       </div>
       <div className="page-content">
-        <form method="POST">
+        <Form method="POST">
           <div className="form-control">
             <label htmlFor="title">Title</label>
             <input type="text" name="title" id="title" />
@@ -29,8 +34,11 @@ export default function NewPost() {
           <button type="submit" className="btn btn-block">
             Add Post
           </button>
-        </form>
+        </Form>
       </div>
     </>
   );
 }
+
+
+export default NewPost;
